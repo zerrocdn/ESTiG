@@ -1,2 +1,3 @@
-# ESTiG
+ESTIG
+
 ESTiG Engenharia Informática
