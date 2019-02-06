@@ -1,0 +1,2 @@
+Este ficheiro serve apenas para
+testar os comandos da simple shell

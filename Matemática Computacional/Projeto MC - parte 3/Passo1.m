@@ -17,7 +17,7 @@ function [solucao] = Passo1(numEmissores, numRecetores, cobertura, offline)
     while u > 0
 	%identificar o emissor mais eficiente
     
-    nr_emissores_cobreMin= numEmissores + 1;
+    nr_emissores_cobreMin = numEmissores + 1;
     rec_escolhido = 0;
     
     for j=1 : numRecetores
