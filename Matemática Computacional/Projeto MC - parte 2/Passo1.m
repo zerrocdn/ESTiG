@@ -1,17 +1,11 @@
-%solução contem o conj dos emissores que correm todos o recetores
+%solu��o contem o conj dos emissores que correm todos o recetores
 
-function [solucao] = Passo1(numEmissores, numRecetores, cobertura, offline)
+function [solucao] = Passo1(numEmissores, numRecetores, cobertura)
     u=numRecetores;
 
     solucao = zeros(1,numEmissores);
    	%nr de recetores que sao cobertos no minimo por 2 emissores
     wj = zeros(1,numRecetores);
-    if offline ~= 0
-        for j=1 : numRecetores
-            cobertura(offline, j) = 0;
-        
-        end
-    end
    
    
     while u > 0
