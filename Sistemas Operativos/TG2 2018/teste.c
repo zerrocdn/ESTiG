@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_ARGS = 100
+
 char *argVector[100];
 char command[100];
 
@@ -12,37 +14,34 @@ void getCommand(char command[]);
 int printArguments(char command[]);
 void makeArgVector(char command[], char *argVector[]);
 
-int main(int argc, const char* argv[])
+int main(int argc, const char *argv[])
 {
   int pid, childPid;
+  int fatherPid = getpid();
+  printf("________________________WELCOME TO SIMPLE SHELL________________________\n\n");
   do
   {
+    printf("\n");
     printf("Introduza um commando: ");
     getCommand(command);
-    printf("Tokens: \n\n");
-    printArguments(command);
-    printf("\n\n");
+    makeArgVector(command, argVector);
+
     pid = fork();
     if (pid == 0)
     {
-      printf("Vou executar o comando: %s\n\n", command);
-      execlp(command, command, (char *)NULL);
-      printf("Commando executado: %s\n\n", command);
+      
+      execvp(argVector[0], argVector);
+      
     }
     else
     {
+      
       wait(&childPid);
-      if (strcmp(command, "quit") != 0)
-      {
-        printf("Commando executado: %s\n\n", command);
-      }
-      else
-      {
-        
-        printf("SimpleShell Closed.\n\n");
-      }
+      printf("\nComando executado: %s\n", command);
     }
   } while (strcmp(command, "quit") != 0);
+  printf("________________________END TO SIMPLE SHELL________________________\n\n");
+  
 }
 
 void getCommand(char command[])
@@ -52,20 +51,40 @@ void getCommand(char command[])
 
 int printArguments(char command[])
 {
+  int n = 0;
+
+  const char s[2] = " ";
   char *token;
 
-  token = strtok(command, " ");
+  /* get the first token */
+  token = strtok(command, s);
 
+  /* walk through other tokens */
   while (token != NULL)
   {
-    printf("%s\n", token);
-    token = strtok(NULL, " t");
+    printf("Argumentos %s\n", token);
+    token = strtok(NULL, s);
+    n++;
   }
 
-  return (0);
+  return n;
 }
 
 void makeArgVector(char command[], char *argVector[])
 {
-  printArguments(command);
+  int n = 0;
+  const char s[2] = " ";
+  char *token;
+
+  /* get the first token */
+  token = strtok(command, s);
+  /* walk through other tokens */
+  while (token != NULL)
+  {
+    argVector[n] = token;
+    token = strtok(NULL, s);
+    n++;
+  }
+
+  argVector[n] = NULL;
 }
