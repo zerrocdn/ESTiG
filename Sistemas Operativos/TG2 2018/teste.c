@@ -38,6 +38,7 @@ int main(int argc, const char* argv[])
       }
       else
       {
+        
         printf("SimpleShell Closed.\n\n");
       }
     }
