@@ -23,25 +23,32 @@ int main(int argc, const char *argv[])
   {
     printf("\n");
     printf("Introduza um commando: ");
+
     getCommand(command);
     makeArgVector(command, argVector);
+
+    printf("\n");
 
     pid = fork();
     if (pid == 0)
     {
-      
       execvp(argVector[0], argVector);
-      
     }
     else
     {
-      
       wait(&childPid);
-      printf("\nComando executado: %s\n", command);
+
+      if (strcmp(command, "quit") == 0)
+      {
+        printf("___________________________END TO SIMPLE SHELL_________________________\n\n");
+      }
+      else
+      {
+        printf("\nComando executado com successo.\n");
+      }
     }
+
   } while (strcmp(command, "quit") != 0);
-  printf("________________________END TO SIMPLE SHELL________________________\n\n");
-  
 }
 
 void getCommand(char command[])
