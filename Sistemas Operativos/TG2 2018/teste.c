@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_ARGS = 100
-
 char *argVector[100];
 char command[100];
 
@@ -17,34 +15,30 @@ void makeArgVector(char command[], char *argVector[]);
 int main(int argc, const char *argv[])
 {
   int pid, childPid;
-  int fatherPid = getpid();
   printf("________________________WELCOME TO SIMPLE SHELL________________________\n\n");
   do
   {
     printf("\n");
     printf("Introduza um commando: ");
-
     getCommand(command);
-    makeArgVector(command, argVector);
-
-    printf("\n");
-
-    pid = fork();
-    if (pid == 0)
+    if (strcmp(command, "quit") == 0)
     {
-      execvp(argVector[0], argVector);
+      printf("___________________________END TO SIMPLE SHELL_________________________\n\n");
     }
     else
     {
-      wait(&childPid);
+      makeArgVector(command, argVector);
+      printf("\n");
 
-      if (strcmp(command, "quit") == 0)
+      pid = fork();
+      if (pid == 0)
       {
-        printf("___________________________END TO SIMPLE SHELL_________________________\n\n");
+        execvp(argVector[0], argVector);
       }
       else
       {
-        printf("\nComando executado com successo.\n");
+        wait(&childPid);
+        printf("Comando executado com successo.\n");
       }
     }
 
@@ -59,22 +53,18 @@ void getCommand(char command[])
 int printArguments(char command[])
 {
   int n = 0;
+  char *args;
 
-  const char s[2] = " ";
-  char *token;
+  args = strtok(command, " ");
 
-  /* get the first token */
-  token = strtok(command, s);
-
-  /* walk through other tokens */
-  while (token != NULL)
+  while (args != NULL)
   {
-    printf("Argumentos %s\n", token);
-    token = strtok(NULL, s);
+    printf("Argumentos %s\n", args);
+    args = strtok(NULL, " ");
     n++;
   }
 
-  return n;
+  return (0);
 }
 
 void makeArgVector(char command[], char *argVector[])
@@ -89,6 +79,7 @@ void makeArgVector(char command[], char *argVector[])
   while (token != NULL)
   {
     argVector[n] = token;
+    printf("Argumentos %s\n", token);
     token = strtok(NULL, s);
     n++;
   }
