@@ -29,7 +29,6 @@ int main(int argc, const char *argv[])
         {
             makeArgVector(command, argVector);
             printf("\n");
-
             pid = fork();
             if (pid == 0)
             {
