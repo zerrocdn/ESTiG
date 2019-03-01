@@ -1,8 +1,8 @@
 .container{
-	width: 100%;
-	border-color: black;
-}
+    width: 100%; 
+    border-color: black; 
+} 
 #branding{
-	color: blue;
-	background-image: url("./fachada_a_merenda.png");
+    color: blue; 
+    /*background-image: url("./fachada_a_merenda.png"); */
 }
