@@ -1,4 +1,6 @@
 import kotlin.random.Random
+import java.time.LocalDateTime
+
 
 class Insertion(var A: IntArray){
     fun sort(): Unit{
@@ -15,8 +17,14 @@ class Insertion(var A: IntArray){
 }
 
 fun main(){
-    var A = IntArray(100){Random.nextInt(0,100)}
+    var A = IntArray(1000000){Random.nextInt(0,100)}
     for (i in 0..A.size-1) println(A[i])
-    val sorting = Insertion(A); sorting.sort()
+
+    val sorting = Insertion(A)
+    var StartTime : Long = System.currentTimeMillis()
+    sorting.sort()
+    var EndTime : Long = System.currentTimeMillis()
+    var duration : Long = EndTime - StartTime
     println(); for (i in 0..A.size-1) println(A[i])
+    println("Tempo: " + duration)
 }
